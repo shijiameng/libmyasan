@@ -135,11 +135,20 @@ static void asan_init(void)
 
 static void asan_deinit(void)
 {
+	int i;
+
 	munmap(shadow_mem_high, SHADOW_MEM_HIGH_SZ);
 	munmap(shadow_mem_gap, SHADOW_GAP_SZ);
 	munmap(shadow_mem_low, SHADOW_MEM_LOW_SZ);
 
 	shadow_mem_high = shadow_mem_gap = shadow_mem_low = NULL;
+
+	for (i = 0; i < QUARANTINE_LIST_SIZE; i++) {
+		if (quarantine_list[i]) {
+			free(quarantine_list[i]);
+			quarantine_list[i] = NULL;
+		}
+	}
 }
 
 void *asan_malloc(size_t size)
