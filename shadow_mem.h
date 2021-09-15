@@ -15,16 +15,12 @@
 #   define HIGH_MEM_END 0xfffffffful
 #   define LOW_MEM_BEG 0x00000000ul
 #   define LOW_MEM_END 0x1ffffffful
-#elif defined(arm)
-#   if defined(__aarch64__)
-#       define SHADOW_OFFSET 0x1000000000ull
-#       define HIGH_MEM_BEG 0x2000000000ull
-#       define HIGH_MEM_END 0x7fffffffffull
-#       define LOW_MEM_BEG 0x0000000000ull
-#       define LOW_MEM_END 0x0fffffffffull
-#   else
-#       error("ARM32 is not supported")
-#   endif
+#elif defined(__aarch64__)
+#   define SHADOW_OFFSET 0x1000000000ull
+#   define HIGH_MEM_BEG 0x2000000000ull
+#   define HIGH_MEM_END 0x7fffffffffull
+#   define LOW_MEM_BEG 0x0000000000ull
+#   define LOW_MEM_END 0x0fffffffffull
 #else
 #   error("A system architecture must be specified!")
 #endif
